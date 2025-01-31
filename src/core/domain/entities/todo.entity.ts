@@ -41,6 +41,9 @@ export namespace Todo {
 	//Response
 	export type CreateTodoResponse = ApiBaseResponse<Todo.Response>;
 
+	// ApiResponse
+	export type CreateApiTodoResponse = ApiBaseResponse<Todo.ApiResponse>;
+
 	export const toEntity = (response: Todo.ApiResponse): Todo.Response => ({
 		id: response.todoId as TodoId,
 		title: response.todoTitle,

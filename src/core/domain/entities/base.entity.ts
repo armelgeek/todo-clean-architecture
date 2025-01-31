@@ -35,7 +35,7 @@ export interface Pagination {
 
 export interface ApiResponse<T> {
 	success: boolean;
-	data?: T;
+	data?: T | null;
 	error?: string | null;
 	metadata?: Pagination | null;
 }

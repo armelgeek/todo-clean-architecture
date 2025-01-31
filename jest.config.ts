@@ -1,9 +1,10 @@
 export default {
 	preset: 'ts-jest',
-	testEnvironment: 'node',
+	testEnvironment: 'jsdom',
 	roots: ['<rootDir>/src'],
-	testMatch: ['**/*.test.ts'],
+	testMatch: ['**/*.test.ts', '**/*.test.tsx'],
 	moduleNameMapper: {
 		'^@/(.*)$': '<rootDir>/src/$1'
-	}
+	},
+	setupFilesAfterEnv: ['@testing-library/jest-dom']
 };
