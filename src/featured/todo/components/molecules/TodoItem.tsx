@@ -2,7 +2,7 @@
 import { Todo } from '@/core/domain/entities/todo.entity';
 import { useService } from '@/core/infrastructure/providers/ServiceProvider';
 import { useState } from 'react';
-
+import { useTodoList } from '../../hooks/useTodoList';
 interface TodoItemProps {
 	todo: Todo.Response;
 }
@@ -13,6 +13,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
 	const [title, setTitle] = useState(todo.title);
 	const [description, setDescription] = useState(todo.description);
 	const [error, setError] = useState('');
+	const { toggleComplete } = useTodoList();
 
 	const handleUpdate = async () => {
 		const result = await todoService.update({
@@ -38,7 +39,12 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
 	};
 
 	return (
-		<li className="py-4">
+		<div className={`${todo.selected ? 'bg-blue-50' : ''}`}>
+			<input
+				type="checkbox"
+				checked={todo.selected}
+				onChange={() => toggleComplete(todo.id)}
+			/>
 			{isEditing ? (
 				<div className="space-y-3">
 					<input
@@ -91,6 +97,6 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
 					)}
 				</div>
 			)}
-		</li>
+		</div>
 	);
 };
