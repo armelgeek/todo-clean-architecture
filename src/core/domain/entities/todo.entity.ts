@@ -37,10 +37,13 @@ export namespace Todo {
 
 	// Request
 	export type CreateTodoDto = Pick<TodoDto, 'title' | 'description'>;
-
+	export type UpdateTodoDto = Pick<Todo.Entity, 'id'| 'title' | 'description' | 'completed'>;
+	export type DeleteTodoDto = Pick<Todo.Entity, 'id'>;
 	//Response
 	export type CreateTodoResponse = ApiBaseResponse<Todo.Response>;
-
+	export type GetTodosResponse = ApiBaseResponse<Todo.Response[]>;
+	export type UpdateTodoResponse = ApiBaseResponse<Todo.Response>;
+	export type DeleteTodoResponse = ApiBaseResponse<Todo.Response>;
 	// ApiResponse
 	export type CreateApiTodoResponse = ApiBaseResponse<Todo.ApiResponse>;
 

@@ -1,6 +1,6 @@
 import { TodoRepositoryInterface } from '../../application/repositories/todo.repository.interface';
 import { Todo } from '../../domain/entities/todo.entity';
-import { post } from '../helpers/rest.helpers';
+import { get, post, put, remove } from '../helpers/rest.helpers';
 
 export class TodoRepository implements TodoRepositoryInterface {
 	async createTodo(todo: Todo.CreateTodoDto): Promise<Todo.CreateTodoResponse> {
@@ -24,6 +24,26 @@ export class TodoRepository implements TodoRepositoryInterface {
 			error: response.error,
 			metadata: response.metadata
 		};
+	}
+
+	async getTodos(): Promise<Todo.GetTodosResponse> {
+		const response = await get<Todo.GetTodosResponse>({ path: 'todo/list' });
+		return response;
+	}
+
+	async updateTodo(todo: Todo.UpdateTodoDto): Promise<Todo.UpdateTodoResponse> {
+		const response = await put<Todo.UpdateTodoResponse, Todo.UpdateTodoDto>({
+			path: `todo/${todo.id}`,
+			payload: todo
+		});
+		return response;
+	}
+
+	async deleteTodo(params: Todo.DeleteTodoDto): Promise<Todo.DeleteTodoResponse> {
+		const response = await remove<Todo.DeleteTodoResponse>({
+			path: `todo/${params.id}`
+		});
+		return response;
 	}
 }
 

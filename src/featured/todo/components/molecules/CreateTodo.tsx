@@ -1,9 +1,9 @@
 "use client";
 import { useState } from 'react';
-import { useTodoService } from '../../providers/TodoServiceProvider';
+import { useService } from '@/core/infrastructure/providers/ServiceProvider';
 
 export const CreateTodo = () => {
-	const { createTodoService } = useTodoService();
+	const todoService = useService('todo');
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [message, setMessage] = useState('');
@@ -14,7 +14,7 @@ export const CreateTodo = () => {
 		setMessage('');
 		setError('');
 
-		const result = await createTodoService.execute({
+		const result = await todoService.create({
 			title,
 			description
 		});
